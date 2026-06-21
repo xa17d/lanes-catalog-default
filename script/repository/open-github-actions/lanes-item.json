@@ -1,0 +1,5 @@
+{
+  "name": "Open GitHub Actions",
+  "icon": "checkmark.seal",
+  "description": "Open the repo's GitHub Actions page for the current branch."
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Open PR",
+  "icon": "arrow.triangle.pull",
+  "description": "Focus or open this branch's pull-request page in Chrome."
+}

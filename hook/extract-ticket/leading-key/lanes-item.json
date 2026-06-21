@@ -1,0 +1,5 @@
+{
+  "name": "Leading issue key",
+  "icon": "tag",
+  "description": "Link a ticket from an ABC-1234-style prefix of the lane folder name."
+}

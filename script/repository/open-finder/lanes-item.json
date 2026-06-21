@@ -1,0 +1,5 @@
+{
+  "name": "Open in Finder",
+  "icon": "folder",
+  "description": "Reveal the repository in Finder."
+}

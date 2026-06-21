@@ -1,0 +1,5 @@
+{
+  "name": "Open Terminal here",
+  "icon": "terminal",
+  "description": "Focus or create the repo's tagged iTerm2 session."
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Git working-tree status",
+  "icon": "text.alignleft",
+  "description": "Set the description to the branch plus a clean/dirty badge, refreshing every 10 minutes."
+}

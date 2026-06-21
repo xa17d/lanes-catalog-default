@@ -1,0 +1,5 @@
+{
+  "name": "opencode",
+  "icon": "chevron.left.slash.chevron.right",
+  "description": "Run opencode in the lane's tagged iTerm2 session."
+}
