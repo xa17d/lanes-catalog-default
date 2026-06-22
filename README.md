@@ -46,3 +46,8 @@ hook/                         ← <role>/<variant>/{ script, lanes-item.json }
 
 These reproduce Lanes' former built-in launchers in plain `osascript` — fork the repo and edit them to fit your toolchain (e.g. swap VS Code for `zed`, Fork for Tower).
 The Chrome/iTerm2 Apple Events are sent by a Lanes-spawned child, so they reuse Lanes' Automation permission (no extra prompt).
+
+## License
+
+[MIT](LICENSE) — copy, fork, and adapt these scripts freely.
+(The Lanes app itself is separately licensed.)
