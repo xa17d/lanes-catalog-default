@@ -1,0 +1,5 @@
+{
+  "name": "Open Repo in Browser",
+  "icon": "safari",
+  "description": "Open the repository's page on its git host."
+}

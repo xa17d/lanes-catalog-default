@@ -1,0 +1,5 @@
+{
+  "name": "Copy Branch Name",
+  "icon": "arrow.triangle.branch",
+  "description": "Copy the repository's current branch name to the clipboard."
+}

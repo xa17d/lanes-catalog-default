@@ -13,18 +13,22 @@ A `lanes-catalog.json` at the root declares the catalog's display name.
 ```
 lanes-catalog.json
 script/                       ← lane actions (cwd = lane dir)
-  open-terminal/{ open-terminal.sh, lanes-item.json }
-  open-finder/  { … }
-  claude/       { … }
-  opencode/     { … }
+  open-terminal/   { open-terminal.sh, lanes-item.json }
+  open-finder/     { … }
+  claude/          { … }
+  opencode/        { … }
+  copy-ticket/     { … }      … copy the lane's ticket key
+  copy-ticket-url/ { … }      … copy the lane's ticket URL
   repository/                 ← per-repo actions (cwd = repo dir)
-    open-pr/             { open-pr.sh, lanes-item.json }
+    open-pr/              { open-pr.sh, lanes-item.json }
     open-github-actions/ { … }
     open-terminal/       { … }
     open-fork/           { … }
     open-android-studio/ { … }
     open-vscode/         { … }
     open-finder/         { … }
+    open-repo-in-browser/{ … } … open the repo's page on its git host
+    copy-branch/         { … } … copy the current branch name
 hook/                         ← <role>/<variant>/{ script, lanes-item.json }
   extract-ticket/leading-key/         { extract.sh, … }
   update-lane-description/git-status/  { describe.sh, … }

@@ -1,0 +1,5 @@
+{
+  "name": "Copy Ticket URL",
+  "icon": "link",
+  "description": "Copy the lane's ticket URL to the clipboard."
+}
