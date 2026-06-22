@@ -31,7 +31,6 @@ script/                       ← lane actions (cwd = lane dir)
     copy-branch/         { … } … copy the current branch name
 hook/                         ← <role>/<variant>/{ script, lanes-item.json }
   extract-ticket/leading-key/         { extract.sh, … }
-  update-lane-description/git-status/  { describe.sh, … }
 ```
 
 `lanes-item.json`:
