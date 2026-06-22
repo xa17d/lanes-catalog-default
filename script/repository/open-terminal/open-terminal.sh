@@ -51,8 +51,14 @@ on run argv
                 end repeat
             end repeat
         end repeat
-        set newWindow to (create window with default profile)
-        tell current session of newWindow
+        if (count of windows) > 0 then
+            tell current window to set newTab to (create tab with default profile)
+            set newSession to current session of newTab
+        else
+            set newWindow to (create window with default profile)
+            set newSession to current session of newWindow
+        end if
+        tell newSession
             set variable named "user.lane" to theTag
             write text "cd " & quoted form of theCwd
             if theCmd is not "" then write text theCmd
