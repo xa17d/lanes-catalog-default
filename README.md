@@ -3,7 +3,7 @@
 The default [Lanes](https://github.com/xa17d/lanes) **catalog** — a git repo of shared config (scripts, hooks, template) you subscribe to from Lanes' Settings.
 
 Subscribing clones this repo under `<root>/.lanes/catalog/<id>/checkout/`; you then enable the items you want from the Catalogs editor in Settings, which writes `.catalog` pointer files into your own `<root>/.lanes/config/`.
-See the Lanes [CONFIGURATION.md](https://github.com/xa17d/lanes/blob/main/CONFIGURATION.md#catalogs) for the full reference.
+See the Lanes [CONFIGURATION.md](https://github.com/xa17d/lanes/blob/main/doc/CONFIGURATION.md#catalogs) for the full reference.
 
 ## Layout
 
