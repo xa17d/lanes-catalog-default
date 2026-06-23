@@ -1,0 +1,5 @@
+{
+  "name": "Jira status badge",
+  "icon": "checklist",
+  "description": "Show the lane's linked Jira ticket as a status-colored badge with its key and summary (via acli), auto-refreshed."
+}

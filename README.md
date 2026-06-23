@@ -31,6 +31,9 @@ script/                       ← lane actions (cwd = lane dir)
     copy-branch/         { … } … copy the current branch name
 hook/                         ← <role>/<variant>/{ script, lanes-item.json }
   extract-ticket/leading-key/         { extract.sh, … }
+  update-lane-description/jira-status/{ describe.sh, … } … Jira status badge
+template/                     ← <variant>/ seeded into each new lane
+  basic-agent-instructions/ { CLAUDE.md, lanes-item.json } … lane working agreement
 ```
 
 `lanes-item.json`:

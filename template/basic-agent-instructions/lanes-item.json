@@ -1,0 +1,5 @@
+{
+  "name": "Basic Agent Instructions",
+  "icon": "doc.text",
+  "description": "Seed each new lane with a CLAUDE.md telling agents to read each repository's own AGENTS.md/CLAUDE.md first."
+}
