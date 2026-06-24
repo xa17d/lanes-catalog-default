@@ -31,9 +31,13 @@ on run argv
                 end if
             end repeat
         end repeat
-        -- Not found: `do script` with no target opens a new window.
-        set newTab to do script "cd " & quoted form of theCwd
-        set custom title of newTab to theTitle
+        -- Not found: `do script` (no target) opens a new window. Set the custom
+        -- title *after* a short delay so it lands after the shell's startup
+        -- title escape sequence and then sticks (Terminal ignores escape-sequence
+        -- titles once a custom title is set).
+        do script "cd " & quoted form of theCwd
+        delay 0.4
+        set custom title of (selected tab of front window) to theTitle
         activate
         return "created"
     end tell
