@@ -1,0 +1,5 @@
+{
+  "name": "Open in VS Code",
+  "icon": "chevron.left.slash.chevron.right",
+  "description": "Open the lane folder in VS Code."
+}
