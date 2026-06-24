@@ -1,0 +1,5 @@
+{
+  "name": "Open Terminal here",
+  "icon": "terminal",
+  "description": "Focus or open this lane's tagged Terminal.app window (matched by title)."
+}

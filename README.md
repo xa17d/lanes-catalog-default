@@ -13,7 +13,8 @@ A `lanes-catalog.json` at the root declares the catalog's display name.
 ```
 lanes-catalog.json
 script/                       ← lane actions (cwd = lane dir)
-  open-terminal/   { open-terminal.sh, lanes-item.json }
+  open-terminal/     { … }    … iTerm2 (focus/create a tagged session)
+  open-terminal-app/ { … }    … Terminal.app (focus/create a title-tagged window)
   open-finder/     { … }
   claude/          { … }
   opencode/        { … }
@@ -22,7 +23,8 @@ script/                       ← lane actions (cwd = lane dir)
   repository/                 ← per-repo actions (cwd = repo dir)
     open-pr/              { open-pr.sh, lanes-item.json }
     open-github-actions/ { … }
-    open-terminal/       { … }
+    open-terminal/       { … }    … iTerm2
+    open-terminal-app/   { … }    … Terminal.app
     open-fork/           { … }
     open-android-studio/ { … }
     open-vscode/         { … }
