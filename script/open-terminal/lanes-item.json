@@ -1,5 +1,5 @@
 {
-  "name": "Open Terminal here",
+  "name": "Open iTerm2 here",
   "icon": "terminal",
   "description": "Focus or create this lane's tagged iTerm2 session."
 }
