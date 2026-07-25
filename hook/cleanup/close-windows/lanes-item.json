@@ -1,0 +1,5 @@
+{
+  "name": "Close lane windows",
+  "icon": "xmark.rectangle",
+  "description": "Tear down the lane's iTerm2/Ghostty tabs and its Fork/VS Code windows, and close Chrome tabs matching the linked ticket, just before archive/delete."
+}
