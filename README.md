@@ -35,6 +35,8 @@ hook/                         ← <role>/<variant>/{ script, lanes-item.json }
   extract-ticket/leading-key/         { extract.sh, … }
   update-lane-description/jira-status/{ describe.sh, … } … Jira status badge
   cleanup/close-windows/              { cleanup.sh, … }  … close the lane's windows/tabs on archive/delete
+clone-repo/                   ← <variant>/{ clone.sh, lanes-item.json } — custom "Clone repo…" handler
+  shallow/                            { clone.sh, … }    … fast shallow clone (git clone --depth 1)
 template/                     ← <variant>/ seeded into each new lane
   basic-agent-instructions/ { CLAUDE.md, lanes-item.json } … lane working agreement
 ```

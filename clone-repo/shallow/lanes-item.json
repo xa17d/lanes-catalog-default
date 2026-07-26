@@ -1,0 +1,5 @@
+{
+  "name": "Shallow clone",
+  "icon": "arrow.down.circle",
+  "description": "Fast, space-saving clone of the latest commit only (git clone --depth 1)."
+}
