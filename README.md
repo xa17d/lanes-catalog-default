@@ -17,9 +17,9 @@ script/                       ← lane actions (cwd = lane dir)
   open-terminal-app/     { … }  … Terminal.app (focus/create a title-tagged window)
   open-terminal-ghostty/ { … }  … Ghostty (focus/create via its AppleScript API)
   open-finder/     { … }
-  claude/          { … }
+  claude-iterm2/   { … }      … Claude in an iTerm2 session
   claude-ghostty/  { … }      … Claude in a Ghostty window
-  opencode/        { … }
+  opencode-iterm2/ { … }      … opencode in an iTerm2 session
   opencode-ghostty/{ … }      … opencode in a Ghostty window
   copy-ticket/     { … }      … copy the lane's ticket key
   copy-ticket-url/ { … }      … copy the lane's ticket URL
