@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 #
-# Open PR — focus the Chrome tab showing this repo's pull/merge request page for
-# the current branch, or open it. Replaces the former built-in "Open PR" action,
+# Open PR — focus the Chrome tab showing this repo's pull-request page for the
+# current branch, or open it. Replaces the former built-in "Open PR" action,
 # including its focus-an-existing-tab behavior.
 #
 # Per-repository script-item: cwd = repo dir; REPO_DIR/REPO_NAME (plus LANE_*) in
-# env. The PR URL is reconstructed from the `origin` remote for GitHub / GitLab /
-# Bitbucket; the Chrome Apple Event reuses Lanes' Automation permission.
+# env. The URL is reconstructed from the `origin` remote as
+# https://HOST/OWNER/REPO/pull/BRANCH; the Chrome Apple Event reuses Lanes'
+# Automation permission.
 set -euo pipefail
 
 cd "${REPO_DIR:-$PWD}"
@@ -26,15 +27,9 @@ owner=${path%/*}     # keeps any GitLab subgroup path
 slug=${path##*/}
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
-enc=${branch//\//%2F}   # encode '/' …
-enc=${enc//:/%3A}       # … and ':' for the query value
+[ -n "$branch" ] && [ "$branch" != "HEAD" ] || { echo "no current branch (detached HEAD?)" >&2; exit 1; }
 
-case "$host" in
-    *github*)    url="https://$host/$owner/$slug/pulls?q=is%3Apr+head%3A$enc" ;;
-    *gitlab*)    url="https://$host/$owner/$slug/-/merge_requests?scope=all&state=opened&source_branch=$enc" ;;
-    *bitbucket*) url="https://bitbucket.org/$owner/$slug/pull-requests/?query=$enc" ;;
-    *) echo "unrecognized host: $host" >&2; exit 1 ;;
-esac
+url="https://$host/$owner/$slug/pull/$branch"
 
 osascript - "$url" "$url" <<'APPLESCRIPT'
 on run argv
