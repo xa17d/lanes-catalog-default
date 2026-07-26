@@ -1,0 +1,5 @@
+{
+  "name": "opencode (Ghostty)",
+  "icon": "chevron.left.slash.chevron.right",
+  "description": "Run opencode in the lane's Ghostty window (Ghostty 1.3.0+)."
+}

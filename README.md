@@ -15,9 +15,12 @@ lanes-catalog.json
 script/                       ← lane actions (cwd = lane dir)
   open-terminal/     { … }    … iTerm2 (focus/create a tagged session)
   open-terminal-app/ { … }    … Terminal.app (focus/create a title-tagged window)
+  open-terminal-ghostty/ { … }  … Ghostty (focus/create via its AppleScript API)
   open-finder/     { … }
   claude/          { … }
+  claude-ghostty/  { … }      … Claude in a Ghostty window
   opencode/        { … }
+  opencode-ghostty/{ … }      … opencode in a Ghostty window
   copy-ticket/     { … }      … copy the lane's ticket key
   copy-ticket-url/ { … }      … copy the lane's ticket URL
   repository/                 ← per-repo actions (cwd = repo dir)
@@ -25,6 +28,7 @@ script/                       ← lane actions (cwd = lane dir)
     open-github-actions/ { … }
     open-terminal/       { … }    … iTerm2
     open-terminal-app/   { … }    … Terminal.app
+    open-terminal-ghostty/ { … }  … Ghostty
     open-fork/           { … }
     open-android-studio/ { … }
     open-vscode/         { … }
@@ -52,7 +56,8 @@ template/                     ← <variant>/ seeded into each new lane
 ```
 
 These reproduce Lanes' former built-in launchers in plain `osascript` — fork the repo and edit them to fit your toolchain (e.g. swap VS Code for `zed`, Fork for Tower).
-The Chrome/iTerm2 Apple Events are sent by a Lanes-spawned child, so they reuse Lanes' Automation permission (no extra prompt).
+The Chrome/iTerm2/Ghostty Apple Events are sent by a Lanes-spawned child, so they reuse Lanes' Automation permission (no extra prompt).
+The Ghostty variants use Ghostty's AppleScript API (1.3.0+) and are drop-in alternatives to the iTerm2/Terminal.app ones — enable whichever terminal you use.
 
 ## License
 
