@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 #
-# Open Ghostty here — focus this lane's Ghostty window, or create one at the lane
-# folder. Re-running focuses the same window instead of spawning a new one.
+# Open Ghostty here — focus this lane's Ghostty terminal, or create one at the lane
+# folder. Re-running focuses the same terminal instead of spawning a new one.
 #
-# Ghostty (1.3.0+) exposes an AppleScript dictionary: a window is created from a
+# Ghostty (1.3.0+) exposes an AppleScript dictionary: a terminal is created from a
 # `surface configuration` whose `initial working directory` places the new shell,
-# and each terminal surface has a stable `id`. Like the Terminal.app variant we
-# remember that id in a per-purpose state file and focus it again next time. The
-# Apple Event is sent by osascript as a child of Lanes, so it reuses Lanes'
-# Automation permission for Ghostty.
+# and each terminal surface has a stable `id`. Like the iTerm2 variant we open a
+# new tab in the front window when one is already open (a fresh window is spawned
+# only when Ghostty has none), and remember that id in a per-purpose state file to
+# focus it again next time. The Apple Event is sent by osascript as a child of
+# Lanes, so it reuses Lanes' Automation permission for Ghostty.
 #
 # Lane-level script-item: cwd = lane dir; LANE_DIR/LANE_NAME/LANE_ID in env.
 set -euo pipefail
@@ -41,14 +42,19 @@ on run argv
                 end repeat
             end try
         end if
-        -- Create a new window at the working directory; optionally type a command
-        -- into its shell (kept interactive, so the shell remains afterwards).
+        -- Create a terminal at the working directory; optionally type a command
+        -- into its shell (kept interactive, so the shell remains afterwards). Open
+        -- a tab in the front window when Ghostty already has one, else a new window.
         set cfg to new surface configuration
         set initial working directory of cfg to theCwd
         if theInput is not "" then set initial input of cfg to theInput
-        set w to new window with configuration cfg
+        if (count of windows) > 0 then
+            set theTab to new tab in (front window) with configuration cfg
+        else
+            set theTab to selected tab of (new window with configuration cfg)
+        end if
         activate
-        return id of (focused terminal of (selected tab of w))
+        return id of (focused terminal of theTab)
     end tell
 end run
 APPLESCRIPT
