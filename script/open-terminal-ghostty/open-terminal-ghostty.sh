@@ -5,11 +5,18 @@
 #
 # Ghostty (1.3.0+) exposes an AppleScript dictionary: a terminal is created from a
 # `surface configuration` whose `initial working directory` places the new shell,
-# and each terminal surface has a stable `id`. Like the iTerm2 variant we open a
-# new tab in the front window when one is already open (a fresh window is spawned
-# only when Ghostty has none), and remember that id in a per-purpose state file to
-# focus it again next time. The Apple Event is sent by osascript as a child of
-# Lanes, so it reuses Lanes' Automation permission for Ghostty.
+# and each terminal surface has a stable `id`. We remember that id in a per-purpose
+# state file and focus it again next time. A terminal `id` is only stable while the
+# terminal lives, so once it is closed the reuse lookup misses and we create a new
+# terminal: a new tab in Ghostty's front window when one is open (so you can keep
+# several lanes' terminals as tabs in one window), or a fresh window when Ghostty
+# has none.
+#
+# Raising is done as focus → activate → delay → focus (the same belt-and-suspenders
+# sequence the iTerm2 variant uses) because Ghostty's focus/activate are async and
+# a lone activate can re-raise the app's previous key window. The Apple Event is
+# sent by osascript as a child of Lanes, so it reuses Lanes' Automation permission
+# for Ghostty.
 #
 # Lane-level script-item: cwd = lane dir; LANE_DIR/LANE_NAME/LANE_ID in env.
 set -euo pipefail
@@ -32,31 +39,48 @@ on run argv
     tell application "Ghostty"
         -- Reuse: focus the remembered terminal if it still exists.
         if prevId is not "" then
-            try
-                repeat with t in terminals
-                    if (id of t) is prevId then
-                        focus t
-                        activate
-                        return prevId
-                    end if
-                end repeat
-            end try
+            repeat with t in terminals
+                set tid to ""
+                try
+                    set tid to id of t
+                end try
+                if tid is prevId then
+                    my raiseTerminal(t)
+                    return prevId
+                end if
+            end repeat
         end if
         -- Create a terminal at the working directory; optionally type a command
-        -- into its shell (kept interactive, so the shell remains afterwards). Open
-        -- a tab in the front window when Ghostty already has one, else a new window.
+        -- into its shell (kept interactive, so the shell remains afterwards).
         set cfg to new surface configuration
         set initial working directory of cfg to theCwd
         if theInput is not "" then set initial input of cfg to theInput
+        -- Open a new tab in the front window when one exists (so different lanes
+        -- can share a window), otherwise a fresh window. The deterministic raise
+        -- below brings the new terminal to the front regardless.
         if (count of windows) > 0 then
             set theTab to new tab in (front window) with configuration cfg
         else
             set theTab to selected tab of (new window with configuration cfg)
         end if
-        activate
-        return id of (focused terminal of theTab)
+        set newTerm to focused terminal of theTab
+        my raiseTerminal(newTerm)
+        return id of newTerm
     end tell
 end run
+
+-- Bring a terminal's window reliably to the front. Ghostty's focus/activate are
+-- asynchronous, so we focus before activating (so the right window is already
+-- front when the app comes forward) and again afterwards (to correct any window
+-- reshuffle activate triggers).
+on raiseTerminal(t)
+    tell application "Ghostty"
+        focus t
+        activate
+        delay 0.15
+        focus t
+    end tell
+end raiseTerminal
 APPLESCRIPT
 )"
 
