@@ -51,13 +51,29 @@ template/                     ← <variant>/ seeded into each new lane
 {
   "name": "Open PR",
   "icon": "arrow.triangle.pull",
-  "description": "Focus or open this branch's pull-request page in Chrome."
+  "description": "Open this branch's pull-request page in the configured browser, reusing Chrome tabs when using Chrome."
 }
 ```
 
 These reproduce Lanes' former built-in launchers in plain `osascript` — fork the repo and edit them to fit your toolchain (e.g. swap VS Code for `zed`, Fork for Tower).
 The Chrome/iTerm2/Ghostty Apple Events are sent by a Lanes-spawned child, so they reuse Lanes' Automation permission (no extra prompt).
 The Ghostty variants use Ghostty's AppleScript API (1.3.0+) and are drop-in alternatives to the iTerm2/Terminal.app ones — enable whichever terminal you use.
+
+## Browser preference
+
+With Lanes 1.1.0 or newer, put a macOS application name in `<root>/.lanes/config/browser` to choose the browser for work links:
+
+```text
+Google Chrome
+```
+
+Lanes passes this value as `LANES_BROWSER` to action scripts.
+**Open GitHub Actions**, **Open repo in browser**, and **Open PR** honor it for HTTP/HTTPS URLs.
+Any app name supported by macOS `open -a` works, including `Safari` and `Firefox`; `default` explicitly selects the system default browser.
+With no preference (missing or empty), GitHub Actions and repository pages use the system default browser, and Open PR keeps its existing Chrome behavior.
+Open PR also reuses Chrome tabs when `Google Chrome` is explicitly selected.
+Other actions, including Finder and editor launchers, are unaffected.
+Apply the catalog update in Lanes' Settings to use the updated actions.
 
 ## License
 

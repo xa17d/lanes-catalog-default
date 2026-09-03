@@ -15,4 +15,8 @@ if [[ "$url" == ssh://* ]]; then
   url="https://${host}/${rest#*/}"
 fi
 url=${url%.git}
-open "$url"
+if [[ ( "$url" == http://* || "$url" == https://* ) && -n "${LANES_BROWSER:-}" && "$LANES_BROWSER" != default ]]; then
+  open -a "$LANES_BROWSER" "$url"
+else
+  open "$url"
+fi
