@@ -28,7 +28,13 @@ branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
 branch_enc=${branch//\//%2F}   # encode '/' in e.g. feature/foo
 
 if [ -n "$branch_enc" ]; then
-    open "https://$host/$owner/$repo/actions?query=branch%3A$branch_enc"
+    url="https://$host/$owner/$repo/actions?query=branch%3A$branch_enc"
 else
-    open "https://$host/$owner/$repo/actions"
+    url="https://$host/$owner/$repo/actions"
+fi
+
+if [[ -n "${LANES_BROWSER:-}" && "$LANES_BROWSER" != default ]]; then
+    open -a "$LANES_BROWSER" "$url"
+else
+    open "$url"
 fi
