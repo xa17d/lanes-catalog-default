@@ -31,6 +31,13 @@ branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
 
 url="https://$host/$owner/$slug/pull/$branch"
 
+# Keep Chrome tab reuse unless another browser is explicitly configured.
+case "${LANES_BROWSER:-}" in
+    ""|"Google Chrome") ;;
+    default) exec open "$url" ;;
+    *) exec open -a "$LANES_BROWSER" "$url" ;;
+esac
+
 osascript - "$url" "$url" <<'APPLESCRIPT'
 on run argv
     set theSub to item 1 of argv
