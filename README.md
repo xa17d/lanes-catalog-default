@@ -61,13 +61,9 @@ The Ghostty variants use Ghostty's AppleScript API (1.3.0+) and are drop-in alte
 
 ## Browser preference
 
-With Lanes 1.1.0 or newer, put a macOS application name in `<root>/.lanes/config/browser` to choose the browser for work links:
-
-```text
-Google Chrome
-```
-
-Lanes passes this value as `LANES_BROWSER` to action scripts.
+With Lanes 1.2.0 or newer, choose **Settings → General → Browser → Open web links in → Google Chrome** to open work links in Chrome.
+This app-wide preference is stored alongside the other Lanes settings; no config file is required.
+Lanes passes the selected application name as `LANES_BROWSER` to action scripts.
 **Open GitHub Actions**, **Open repo in browser**, and **Open PR** honor it for HTTP/HTTPS URLs.
 Any app name supported by macOS `open -a` works, including `Safari` and `Firefox`; `default` explicitly selects the system default browser.
 With no preference (missing or empty), GitHub Actions and repository pages use the system default browser, and Open PR keeps its existing Chrome behavior.
