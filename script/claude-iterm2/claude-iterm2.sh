@@ -5,12 +5,21 @@
 # existing session instead of spawning a new window. Replaces the former built-in
 # Agents › Claude action. Swap CMD to point at a different agent CLI.
 #
+# A new session resumes the lane's most recent Claude conversation (`--continue`)
+# when one exists. Interactive `claude --continue` aborts with "No conversation
+# found to continue" otherwise, so we first look for an interactive transcript
+# (`-p`/SDK runs are tagged differently and are not resumable that way) in Claude's
+# session store: <config dir>/projects/<physical cwd, non-alphanumerics as "-">.
+#
 # Lane-level script-item: cwd = lane dir; LANE_DIR/LANE_NAME/LANE_ID in env.
 set -euo pipefail
 
 TAG="claude"
 CWD="${LANE_DIR:-$PWD}"
 CMD="claude"
+
+SESSION_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/projects/$(cd "$CWD" && pwd -P | sed 's/[^A-Za-z0-9]/-/g')"
+grep -qs '"entrypoint":"cli"' "$SESSION_DIR"/*.jsonl && CMD="$CMD --continue"
 
 osascript - "«lane:${LANE_ID:-}:${TAG}»" "$CWD" "$CMD" <<'APPLESCRIPT'
 on run argv

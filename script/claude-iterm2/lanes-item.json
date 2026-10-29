@@ -1,5 +1,5 @@
 {
   "name": "Claude (iTerm2)",
   "icon": "sparkles",
-  "description": "Run Claude in the lane's tagged iTerm2 session."
+  "description": "Run Claude in the lane's tagged iTerm2 session, resuming its last conversation."
 }
