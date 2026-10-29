@@ -5,6 +5,12 @@
 # runs inside the interactive shell (via the surface's `initial input`), so when it
 # exits you drop back to a shell in the lane. Swap CMD for a different agent.
 #
+# A new terminal resumes the lane's most recent Claude conversation (`--continue`)
+# when one exists. Interactive `claude --continue` aborts with "No conversation
+# found to continue" otherwise, so we first look for an interactive transcript
+# (`-p`/SDK runs are tagged differently and are not resumable that way) in Claude's
+# session store: <config dir>/projects/<physical cwd, non-alphanumerics as "-">.
+#
 # Ghostty (1.3.0+) AppleScript: a terminal is created from a `surface configuration`
 # (initial working directory + initial input). Each terminal has a stable `id` that
 # we remember in a per-purpose state file to focus it again next time. A terminal
@@ -25,6 +31,10 @@ set -euo pipefail
 CWD="${LANE_DIR:-$PWD}"
 KEY="${LANE_ID:-lane}:claude"
 CMD="claude"
+
+SESSION_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/projects/$(cd "$CWD" && pwd -P | sed 's/[^A-Za-z0-9]/-/g')"
+grep -qs '"entrypoint":"cli"' "$SESSION_DIR"/*.jsonl && CMD="$CMD --continue"
+
 INPUT="${CMD}"$'\n'   # typed into the shell; trailing newline runs it
 
 STATE_DIR="${TMPDIR:-/tmp}/lanes-ghostty"
